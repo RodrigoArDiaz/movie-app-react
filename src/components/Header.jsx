@@ -18,8 +18,9 @@ function Header() {
           <Link className='text-xs sm:text-sm md:text-lg font-semibold text-gray-400 hover:text-red-400' to="/movies/top_rated">Top Rated</Link>
           <Link className='text-xs sm:text-sm md:text-lg font-semibold text-gray-400 hover:text-red-400' to="/movies/upcoming">Upcoming</Link>
 
-          <LanguageSelector />
+          
         </div>
+        <LanguageSelector />
       </header>
     </>
   );
