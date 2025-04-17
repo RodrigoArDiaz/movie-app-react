@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
 import { useParams } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 function MovieList() {
   const [movieList, setMovieList] = useState([]);
   const { type } = useParams();
+  const { language } = useLanguage();
 
   useEffect(() => {
     getData();
@@ -13,13 +15,18 @@ function MovieList() {
   useEffect(() => {
     getData();
   }, [type]);
+
+  useEffect(() => {
+    getData();
+  }, [language]);
+
   const MOVIE_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const getData = async () => {
     try {
       const response = await fetch(
         `https://api.themoviedb.org/3/movie/${
           type ? type : "popular"
-        }?api_key=${MOVIE_KEY}&language=en-US`
+        }?api_key=${MOVIE_KEY}&language=${language}` // Cambia el idioma aquí
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

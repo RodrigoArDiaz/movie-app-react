@@ -6,6 +6,7 @@ import MovieList from "./components/MovieList";
 import MovieDetail from "./pages/MovieDetail";
 import Error from "./pages/Error";
 import loadings from "./assets/LOADING.svg";
+import { LanguageProvider } from "./context/LanguageContext";
 
 function App() {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -35,27 +36,29 @@ function App() {
 
   return (
     <>
-      <div className="w-full min-h-screen pb-20 h-fit bg-slate-950">
-        <Router>
-          <Header />
+      <LanguageProvider>
+        <div className="w-full min-h-screen pb-20 h-fit bg-slate-950">
+          <Router>
+            <Header />
 
-          {loading ? (
-            <div className="flex justify-center items-center bg-slate-900 w-100% h-full min-h-screen">
-              <img src={loadings} className="w-40" alt="Loading..." />
-            </div>
-          ) : (
-            <Routes>
-              <Route
-                index
-                element={<Home popularMovies={popularMovies} />}
-              ></Route>
-              <Route path="movie/:id" element={<MovieDetail />}></Route>
-              <Route path="movies/:type" element={<MovieList />}></Route>
-              <Route path="*" element={<Error />}></Route>
-            </Routes>
-          )}
-        </Router>
-      </div>
+            {loading ? (
+              <div className="flex justify-center items-center bg-slate-900 w-100% h-full min-h-screen">
+                <img src={loadings} className="w-40" alt="Loading..." />
+              </div>
+            ) : (
+              <Routes>
+                <Route
+                  index
+                  element={<Home popularMovies={popularMovies} />}
+                ></Route>
+                <Route path="movie/:id" element={<MovieDetail />}></Route>
+                <Route path="movies/:type" element={<MovieList />}></Route>
+                <Route path="*" element={<Error />}></Route>
+              </Routes>
+            )}
+          </Router>
+        </div>
+      </LanguageProvider>
     </>
   );
 }

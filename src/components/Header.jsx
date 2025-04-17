@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../assets/movie.png'
+import LanguageSelector from './Navbar/LanguageSelector';
 
 function Header() {
   return (
@@ -16,6 +17,8 @@ function Header() {
           <Link className='text-xs sm:text-sm md:text-lg font-semibold text-gray-400 hover:text-red-400' to="/movies/popular">Popular</Link>
           <Link className='text-xs sm:text-sm md:text-lg font-semibold text-gray-400 hover:text-red-400' to="/movies/top_rated">Top Rated</Link>
           <Link className='text-xs sm:text-sm md:text-lg font-semibold text-gray-400 hover:text-red-400' to="/movies/upcoming">Upcoming</Link>
+
+          <LanguageSelector />
         </div>
       </header>
     </>
