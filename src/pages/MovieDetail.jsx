@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 function MovieDetail() {
   const [movieDetails, setMovieDetails] = useState([]);
   const { id } = useParams();
+  const { language } = useLanguage();
 
   useEffect(() => {
     getData();
     window.scrollTo(0, 0);
   }, [id]);
 
+  useEffect(() => {
+    getData();
+  }, [language]);
+
   const MOVIE_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const getData = async () => {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${MOVIE_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${MOVIE_KEY}&language=${language}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
