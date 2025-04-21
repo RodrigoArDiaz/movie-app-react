@@ -29,7 +29,7 @@ function Cards({movie}) {
           <Link to={`/movie/${movie.id}`}>
             <div className="cards relative rounded-md bg-white group hover:scale-125 hover:z-10 transition-all duration-300">
               <img
-                className="img w-full rounded-md"
+                className="img w-full rounded-md  group-hover:brightness-[0.35] transition-all duration-300"
                 src={`https://image.tmdb.org/t/p/original${
                   movie ? movie.poster_path : ""
                 }`}
