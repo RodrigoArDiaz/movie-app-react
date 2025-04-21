@@ -10,15 +10,7 @@ function MovieList() {
 
   useEffect(() => {
     getData();
-  }, []);
-
-  useEffect(() => {
-    getData();
-  }, [type]);
-
-  useEffect(() => {
-    getData();
-  }, [language]);
+  }, [type, language]);
 
   const MOVIE_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const getData = async () => {

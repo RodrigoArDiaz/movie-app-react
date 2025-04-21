@@ -3,10 +3,43 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { Link } from "react-router-dom";
 import MovieList from "../components/MovieList";
+import { useLanguage } from "../context/LanguageContext";
+import loadings from "../assets/LOADING.svg";
 
-function Home({ popularMovies }) {
+function Home({ }) {
+  const [loading, setLoading] = useState(true);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const { language } = useLanguage();
+  const MOVIE_KEY = import.meta.env.VITE_TMDB_API_KEY;
+
+  useEffect(() => {
+    fetchData(); // Call the async function within useEffect
+  }, [language]);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_KEY}&language=${language}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setPopularMovies(data.results);
+      setLoading(false);
+    } catch (error) {
+      console.error("Failed to fetch movies:", error);
+    }
+  };
+
   return (
     <>
+    {loading ? (
+      <div className="flex justify-center items-center bg-slate-900 w-100% h-full min-h-screen">
+        <img src={loadings} className="w-40" alt="Loading..." />
+      </div>
+    ) : (
       <div className="mx-auto w-full min-h-screen bg-slate-900 h-fit pb-10">
         <Carousel
           showThumbs={false}
@@ -58,6 +91,7 @@ function Home({ popularMovies }) {
         </Carousel>
         <MovieList />
       </div>
+    )}
     </>
   );
 }
